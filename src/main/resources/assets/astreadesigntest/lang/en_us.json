@@ -1,0 +1,13 @@
+{
+  "itemGroup.astreadesigntest": "Example Mod Tab",
+  "block.astreadesigntest.example_block": "Example Block",
+  "item.astreadesigntest.example_item": "Example Item",
+
+  "astreadesigntest.configuration.title": "Astrea-Design-test Configs",
+  "astreadesigntest.configuration.section.astreadesigntest.common.toml": "Astrea-Design-test Configs",
+  "astreadesigntest.configuration.section.astreadesigntest.common.toml.title": "Astrea-Design-test Configs",
+  "astreadesigntest.configuration.items": "Item List",
+  "astreadesigntest.configuration.logDirtBlock": "Log Dirt Block",
+  "astreadesigntest.configuration.magicNumberIntroduction": "Magic Number Text",
+  "astreadesigntest.configuration.magicNumber": "Magic Number"
+}
