@@ -24,7 +24,7 @@ public class ControllerBlockEntity extends BlockEntity implements GeoBlockEntity
     private AnimState animState = AnimState.IDLE;
 
     private static final RawAnimation IDLE_ANIM = RawAnimation.begin().thenLoop("idle");
-    private static final RawAnimation LINK_ATTEMPT_ANIM = RawAnimation.begin().thenLoop("controller_linkattempt_animation");
+    private static final RawAnimation LINK_ATTEMPT_ANIM = RawAnimation.begin().thenPlayAndHold("controller_linkattempt_animation");
     private static final RawAnimation LINK_SUCCESS_ANIM = RawAnimation.begin().thenPlay("controller_linksucessfull_connected_animation");
     
     private final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
