@@ -7,6 +7,7 @@ import com.astrea.astreadesigntest.items.ControllerTestItem;
 import com.astrea.astreadesigntest.items.LinkingToolItem;
 import com.astrea.astreadesigntest.blocks.ControllerBlock;
 import com.astrea.astreadesigntest.blockentity.ControllerBlockEntity;
+import com.astrea.astreadesigntest.sounds.ModSounds;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -82,6 +83,7 @@ public class AstreaDesigntest {
         ITEMS.register(modEventBus);
         BLOCK_ENTITIES.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
+        ModSounds.SOUNDS.register(modEventBus);
         NeoForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::addCreative);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);

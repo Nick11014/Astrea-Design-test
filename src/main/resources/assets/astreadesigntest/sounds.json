@@ -1,0 +1,8 @@
+{
+  "linking_tool_activate": {
+    "subtitle": "Linking Tool Activates",
+    "sounds": [
+      "astreadesigntest:linking_tool_activate"
+    ]
+  }
+}

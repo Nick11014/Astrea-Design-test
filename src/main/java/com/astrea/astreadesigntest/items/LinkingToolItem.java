@@ -4,6 +4,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -21,6 +23,7 @@ import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import com.astrea.astreadesigntest.client.renderer.LinkingToolItemRenderer;
+import com.astrea.astreadesigntest.sounds.ModSounds;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -67,6 +70,10 @@ public class LinkingToolItem extends Item implements GeoItem {
             triggerAnim(player, GeoItem.getOrAssignId(player.getItemInHand(hand), serverLevel), "Activation", "side_button_activate");
 
         if (!level.isClientSide()) {
+            // Play custom sound effect
+            level.playSound(null, player.getX(), player.getY(), player.getZ(), 
+                    ModSounds.LINKING_TOOL_ACTIVATE.get(), SoundSource.PLAYERS, 0.8f, 1.0f);
+            
             // Send different messages based on player state
             if (player.isCrouching()) {
                 player.sendSystemMessage(Component.literal("Device Link Established!").withStyle(ChatFormatting.GREEN));
