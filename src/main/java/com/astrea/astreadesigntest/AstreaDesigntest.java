@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 import com.astrea.astreadesigntest.items.ControllerTestItem;
+import com.astrea.astreadesigntest.items.LinkingToolItem;
 import com.astrea.astreadesigntest.blocks.ControllerBlock;
 import com.astrea.astreadesigntest.blockentity.ControllerBlockEntity;
 
@@ -56,6 +57,9 @@ public class AstreaDesigntest {
 
     public static final DeferredItem<ControllerTestItem> CONTROLLER_TEST_ITEM = ITEMS.register("controller_test_item", 
             () -> new ControllerTestItem(new Item.Properties().stacksTo(1)));
+
+    public static final DeferredItem<LinkingToolItem> LINKING_TOOL_ITEM = ITEMS.register("linking_tool", 
+            () -> new LinkingToolItem(new Item.Properties().stacksTo(1)));
             
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ControllerBlockEntity>> CONTROLLER_BLOCK_ENTITY = 
             BLOCK_ENTITIES.register("controller_block_entity", () -> BlockEntityType.Builder.of(
@@ -68,6 +72,7 @@ public class AstreaDesigntest {
             .displayItems((parameters, output) -> {
                 output.accept(EXAMPLE_ITEM.get());
                 output.accept(CONTROLLER_TEST_ITEM.get());
+                output.accept(LINKING_TOOL_ITEM.get());
                 output.accept(CONTROLLER_BLOCK_ITEM.get());
             }).build());
 

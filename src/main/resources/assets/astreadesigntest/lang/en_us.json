@@ -4,6 +4,7 @@
   "block.astreadesigntest.controller_block": "Controller Block",
   "item.astreadesigntest.example_item": "Example Item",
   "item.astreadesigntest.controller_test_item": "Controller Test Item",
+  "item.astreadesigntest.linking_tool": "Linking Tool",
 
   "astreadesigntest.configuration.title": "Astrea-Design-test Configs",
   "astreadesigntest.configuration.section.astreadesigntest.common.toml": "Astrea-Design-test Configs",
