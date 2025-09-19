@@ -56,15 +56,15 @@ public class LinkingToolItem extends Item implements GeoItem {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "Activation", 0, state -> PlayState.STOP)
-                .triggerableAnim("activate", ACTIVATE_ANIM));
-                // We've marked the "activate" animation as being triggerable from the server
+                .triggerableAnim("side_button_activate", ACTIVATE_ANIM));
+                // We've marked the "side_button_activate" animation as being triggerable from the server
     }
 
     // Let's handle our use method so that we activate the animation when right-clicking while holding the item
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         if (level instanceof ServerLevel serverLevel)
-            triggerAnim(player, GeoItem.getOrAssignId(player.getItemInHand(hand), serverLevel), "Activation", "activate");
+            triggerAnim(player, GeoItem.getOrAssignId(player.getItemInHand(hand), serverLevel), "Activation", "side_button_activate");
 
         if (!level.isClientSide()) {
             // Send different messages based on player state
@@ -75,7 +75,7 @@ public class LinkingToolItem extends Item implements GeoItem {
             }
         }
         
-        return InteractionResultHolder.success(player.getItemInHand(hand));
+        return InteractionResultHolder.pass(player.getItemInHand(hand));
     }
 
     @Override
