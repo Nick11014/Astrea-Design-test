@@ -76,6 +76,6 @@
     }
   },
   "textures": {
-    "particle": "astreadesigntest:item/texture"
+    "particle": "astreadesigntest:item/led_light_stick"
   }
 }
