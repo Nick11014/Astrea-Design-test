@@ -6,6 +6,8 @@ import com.mojang.logging.LogUtils;
 import com.astrea.astreadesigntest.items.ControllerTestItem;
 import com.astrea.astreadesigntest.items.LinkingToolItem;
 import com.astrea.astreadesigntest.items.LedLightStickItem;
+import com.astrea.astreadesigntest.blocks.LedTestBlock;
+import com.astrea.astreadesigntest.blockentity.LedTestBlockEntity;
 import com.astrea.astreadesigntest.blocks.ControllerBlock;
 import com.astrea.astreadesigntest.blockentity.ControllerBlockEntity;
 import com.astrea.astreadesigntest.sounds.ModSounds;
@@ -48,6 +50,7 @@ public class AstreaDesigntest {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
     public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock("example_block", BlockBehaviour.Properties.of().mapColor(MapColor.STONE));
+    public static final DeferredBlock<LedTestBlock> LED_TEST_BLOCK = BLOCKS.register("led_test", () -> new LedTestBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(1.0f)));
     public static final DeferredBlock<ControllerBlock> CONTROLLER_BLOCK = BLOCKS.register("controller_block", 
             () -> new ControllerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(3.0f, 6.0f).noOcclusion()));
     
@@ -65,10 +68,15 @@ public class AstreaDesigntest {
     
     public static final DeferredItem<LedLightStickItem> LED_LIGHT_STICK_ITEM = ITEMS.register("led_light_stick", 
             () -> new LedLightStickItem(new Item.Properties().stacksTo(1)));
+        public static final DeferredItem<BlockItem> LED_TEST_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("led_test", LED_TEST_BLOCK);
             
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ControllerBlockEntity>> CONTROLLER_BLOCK_ENTITY = 
             BLOCK_ENTITIES.register("controller_block_entity", () -> BlockEntityType.Builder.of(
                     ControllerBlockEntity::new, CONTROLLER_BLOCK.get()).build(null));
+
+        public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<LedTestBlockEntity>> LED_TEST_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("led_test_block_entity", () -> BlockEntityType.Builder.of(
+                LedTestBlockEntity::new, LED_TEST_BLOCK.get()).build(null));
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.astreadesigntest"))
@@ -79,6 +87,7 @@ public class AstreaDesigntest {
                 output.accept(CONTROLLER_TEST_ITEM.get());
                 output.accept(LINKING_TOOL_ITEM.get());
                 output.accept(LED_LIGHT_STICK_ITEM.get());
+                output.accept(LED_TEST_BLOCK_ITEM.get());
                 output.accept(CONTROLLER_BLOCK_ITEM.get());
             }).build());
 
@@ -101,6 +110,7 @@ public class AstreaDesigntest {
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
             event.accept(EXAMPLE_BLOCK_ITEM);
+            event.accept(LED_TEST_BLOCK_ITEM);
         }
     }
 

@@ -1,0 +1,16 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.model.new": {
+			"animation_length": 0.4167,
+			"bones": {
+				"bone": {
+					"scale": {
+						"vector": ["query.astreadesigntest.charge_percentage / 100", 1, 1]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}
