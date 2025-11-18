@@ -1,0 +1,54 @@
+@Mod.EventBusSubscriber(modid = "seumodid")
+public class ChestPreviewHandler {
+
+    @SubscribeEvent
+    public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        Level level = event.getLevel();
+        Player player = event.getEntity();
+
+        if (level.isClientSide()) return; // só servidor decide
+
+        BlockState state = level.getBlockState(event.getPos());
+        if (!(state.getBlock() instanceof ChestBlock)) return;
+
+        event.setCanceled(true); // impede GUI padrão
+
+        // Envia um pacote pro cliente gerar as "entidades visuais"
+        NetworkHandler.sendToPlayer(new ShowChestItemsPacket(event.getPos()), player);
+    }
+}
+public class ShowChestItemsPacket {
+    private final BlockPos pos;
+
+    // construtores + encoder/decoder omitidos
+
+    public static void handle(ShowChestItemsPacket msg, Supplier<NetworkEvent.Context> ctx) {
+        ctx.get().enqueueWork(() -> {
+            Minecraft mc = Minecraft.getInstance();
+            Level level = mc.level;
+            if (level == null) return;
+
+            BlockEntity blockEntity = level.getBlockEntity(msg.pos);
+            if (!(blockEntity instanceof ChestBlockEntity chest)) return;
+
+            // Posição base à frente do baú
+            Vec3 front = Vec3.atCenterOf(msg.pos)
+                .add(Vec3.directionFromRotation(0, chest.getBlockState().getValue(ChestBlock.FACING).toYRot()).scale(1.2));
+
+            // Criar entidades visuais
+            for (int i = 0; i < chest.getContainerSize(); i++) {
+                ItemStack stack = chest.getItem(i);
+                if (stack.isEmpty()) continue;
+
+                ItemEntity ghostItem = new ItemEntity(level, front.x, front.y + (i * 0.2), front.z, stack.copy());
+                ghostItem.setNoPickUpDelay();
+                ghostItem.setGlowingTag(true);
+                ghostItem.setInvulnerable(true);
+                ghostItem.setNoGravity(true);
+                ghostItem.setDeltaMovement(0, 0.01, 0);
+                level.addEntity(ghostItem);
+            }
+        });
+        ctx.get().setPacketHandled(true);
+    }
+}
